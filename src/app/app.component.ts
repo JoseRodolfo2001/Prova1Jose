@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Form, FormGroup } from '@angular/forms';
+import { Dicionario } from './dicionario';
 
 @Component({
   selector: 'app-root',
@@ -6,16 +8,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ProvaJose';
-  wordList 
-  currentWord 
 
-  constructor() { }
+  dicionario: Dicionario = new Dicionario
+  dicionarioLista: Dicionario[] = []
+  checkWord = false
 
-  addWord(form) {
-    this.wordList.push(this.currentWord)
-    this.currentWord
-    form.resetForm()
+  checkList(palavra) {
+    if (this.dicionarioLista.find(e => e.palavra === palavra)) {
+      this.checkWord = true
+    } else {
+      this.checkWord = false
+    }
   }
-}
 
+  submit(dicionarioForm) {
+    let dicionarioArr = new Array()
+
+    dicionarioArr.push({
+      palavra: dicionarioForm.value.palavra,
+      significado: dicionarioForm.value.significado
+    })
+
+    this.dicionarioLista.push(this.dicionario)
+
+    this.dicionario = new Dicionario()
+    dicionarioForm.resetForm()
+
+    this.checkWord = false
+  }
+
+}
