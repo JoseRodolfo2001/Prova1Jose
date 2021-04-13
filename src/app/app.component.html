@@ -1,13 +1,31 @@
-<h1>Meu dicionário de Inglês</h1>
 
-<div>
-  <label>Palavra:</label>
-    <input type="text" name="word">
-</div>
+<form #dicionarioForm="ngForm" (ngSubmit)="submit(dicionarioForm)">
+  <h1>Meu dicionário de Inglês</h1>
+  <div>
+    <label>Palavra:</label>
+    <input type="text" name="palavra" class="form-control" id="palavra" [(ngModel)]="dicionario.palavra"
+      #palavra="ngModel" (change)="checkList(palavra.value)" required>
+    <div *ngIf="!checkWord && palavra.invalid && (palavra.dirty || palavra.touched)">
+      <p *ngIf="palavra.errors.required">Campo obrigatório!</p>
+    </div>
+    <div *ngIf="checkWord">
+      <p>Palavra ja contém!</p>
+    </div>
+  </div>
+  <div>
+    <label>Significado:</label>
+    <input type="text" name="significado" class="form-control" id="significado" [(ngModel)]="dicionario.significado"
+      #significado="ngModel" required>
+    <div *ngIf="significado.invalid && (significado.dirty || significado.touched)">
+      <p *ngIf="significado.errors.required">Campo obrigatório!</p>
+    </div>
+  </div>
+  <input type="submit" value="Salvar" [disabled]="dicionarioForm.invalid || checkWord">
 
-<div>
-  <label>Significado:</label>
-  <input type="text" name="significado">
-</div>
-
-<input type="submit" value="Salvar">
+  <div *ngIf="dicionarioLista.length > 0">
+    <div class="table" *ngFor="let dicionario of dicionarioLista">
+      <div><label><b>Palavra:</b> {{dicionario.palavra}}</label></div>
+      <div><label><b>Significado:</b> {{dicionario.significado}}</label></div>
+    </div>
+  </div>
+</form>
