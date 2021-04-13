@@ -1,5 +1,5 @@
 
-<form #dicionarioForm="ngForm" (ngSubmit)="submit(dicionarioForm)">
+<form #dictionaryForm="ngForm" (ngSubmit)="submit(dictionaryForm)">
   <h1>Meu dicionário de Inglês</h1>
   <div>
     <label>Palavra:</label>
@@ -22,8 +22,8 @@
   </div>
   <input type="submit" value="Salvar" [disabled]="dicionarioForm.invalid || checkWord">
 
-  <div *ngIf="dicionarioLista.length > 0">
-    <div class="table" *ngFor="let dicionario of dicionarioLista">
+  <div *ngIf="dictionaryLista.length > 0">
+    <div class="table" *ngFor="let dicionario of dictionaryLista">
       <div><label><b>Palavra:</b> {{dicionario.palavra}}</label></div>
       <div><label><b>Significado:</b> {{dicionario.significado}}</label></div>
     </div>
